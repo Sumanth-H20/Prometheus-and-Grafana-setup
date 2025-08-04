@@ -226,6 +226,58 @@ ypu should see below page
 
 
 
+Jenkins Monitoring with Prometheus and Grafana
+
+now install jenkins using --> https://www.jenkins.io/doc/book/installing/linux/#debian-weekly
+
+Go to Manage Jenkins → Plugins → Available Plugins Search for Prometheus and install it
+
+<img width="1782" height="875" alt="image" src="https://github.com/user-attachments/assets/abf42bc2-558d-4664-a4fc-3a780e71a71a" />
+
+restart the jenkins once by checking the box.
+
+Once that is done you will Prometheus is set to /Prometheus path in system configurations
+<img width="1774" height="853" alt="image" src="https://github.com/user-attachments/assets/19ffa33d-28e5-40e7-82c5-a6c65bcf46ee" />
+
+nothing to change click on save amd apply.
+
+static target, you need to add job_name with static_configs
+
+sudo vim /etc/prometheus/prometheus.yml
+Paste below code
+
+- job_name: 'jenkins'
+   metrics_path: '/prometheus'
+   static_configs:
+     - targets: ['<jenkins-ip>:8080']
+<img width="1918" height="763" alt="image" src="https://github.com/user-attachments/assets/f8b75874-a27e-464f-b10e-ee8d5bfc87a2" />
+
+after changes restart prometheus
+
+sudo systemctl restart prometheus
+
+you should see below page 
+<img width="1917" height="828" alt="image" src="https://github.com/user-attachments/assets/e48d0442-a31f-476d-8e91-a778b01119fd" />
+
+add Dashboard for a better view in Grafana
+
+Click On Dashboard → + symbol → Import Dashboard
+
+Use Id 9964 and click on load
+<img width="1672" height="960" alt="image" src="https://github.com/user-attachments/assets/86d89b3f-ed03-4766-a419-548a087abfcd" />
+select data source as prometheus
+
+you should see below page
+<img width="1917" height="952" alt="image" src="https://github.com/user-attachments/assets/09533b25-b60d-40f5-8b5a-cf5cf54540a1" />
+
+
+
+
+
+
+
+
+
 
 
 
